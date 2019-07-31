@@ -103,6 +103,7 @@ class Main(Command):
         # Total count
         count = sum([v for v, k in stats])
 
+        self.stdout("field_value\tcount\tpercent")
         for num, value in stats:
             percent = 100.0 * num / count
             percent = round(percent, 4)

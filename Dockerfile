@@ -21,7 +21,7 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.6 10 &
     update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 10
 
 # Uncomment this to sanity check we're getting Python 3.6 or later
-# RUN python3 --version
+# RUN python --version
 
 # Install builder
 RUN pip install pyinstaller
@@ -34,13 +34,13 @@ COPY setup.py setup.py
 COPY turo_parser/ turo_parser/
 
 # Install dependencies
-RUN pip install --find-links /usr/src/app/deps --no-index .
+RUN pip install --find-links deps/ --no-index .
 
 # Building executable
 RUN pyinstaller --onefile turo_parser/main.py
 
 # Stage for executable container
-FROM python:3.6 AS final
+FROM ubuntu:18.04 AS final
 
 # Copy artifacts from previous build
 COPY --from=build /usr/src/app/dist/main /usr/local/bin/turo-parser
