@@ -19,7 +19,7 @@ dependencies should be needed.
 
 ```bash
 $ export RELEASE_URL="https://github.com/shakefu/turo-parser/releases/download/v1.0.0/turo-parser"
-$ curl $RELEASE_URL > /usr/local/bin/turo-parser
+$ curl -L $RELEASE_URL > /usr/local/bin/turo-parser
 $ chmod +x /usr/local/bin/turo-parser
 ```
 
