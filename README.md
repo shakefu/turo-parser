@@ -28,7 +28,8 @@ A docker container is provided if you want to run the command without having to
 install anything to your system, except for Docker of course.
 
 ```bash
-$ docker pull shakefu/turo-parser
+# Create a docker image from this repository
+$ docker build -t shakefu/turo-parser .
 ```
 
 ### Python
