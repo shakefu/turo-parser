@@ -3,6 +3,7 @@ import argparse
 from collections import defaultdict
 
 import configargparse
+import apache_log_parser
 from pytool.cmd import Command, opt, run
 
 
@@ -36,17 +37,10 @@ class Main(Command):
             self.stderr("Log file is empty")
             sys.exit(1)
 
+        # Work line by line
         lines = lines.split('\n')
 
-        # Late import so that techincally we can run this without this
-        # dependency if we don't want it
-        try:
-            import apache_log_parser
-        except ImportError:
-            self.stderr("Missing dependency 'apache-log-parser'.")
-            self.stderr("Try 'pip install apache-log-parser'.")
-            sys.exit(1)
-
+        # Build our parser
         line_parser = apache_log_parser.make_parser(self.args.format)
 
         if not quiet:
@@ -57,6 +51,7 @@ class Main(Command):
         # Use dynamic fields for fun and profit
         fields = self.args.fields.split(',')
 
+        # Parse each line
         for line in lines:
             if not line or not line.strip():
                 # Ignore completely blank lines
